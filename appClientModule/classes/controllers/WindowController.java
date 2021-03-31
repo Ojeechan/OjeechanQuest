@@ -161,12 +161,14 @@ public class WindowController extends JFrame implements ComponentListener, Windo
 	 * @param scene ゲームシーンオブジェクト
 	 */
 	public void setGameScene(GameScene scene) {
+
 		if(currentScene != null) {
 			this.remove(currentScene.getPanel());
 		}
 
 		this.currentScene = scene;
 		this.add(scene.getPanel());
+
 
 		repaintUtil();
 	}
@@ -338,7 +340,7 @@ public class WindowController extends JFrame implements ComponentListener, Windo
 		// フォーカスを操作パネルに設定
 		getFrontPanel().getPanel().requestFocusInWindow();
 		//更新
-		validate();
+		super.validate();
 	}
 
 	/**

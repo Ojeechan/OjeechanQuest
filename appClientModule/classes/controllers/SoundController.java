@@ -72,23 +72,24 @@ public class SoundController {
 	 * コールバックの実験
 	 */
 	public static class CallBackBGM implements Runnable {
-		private GameScene path;
+		private GameScene scene;
 
 		/**
 		 * BGMのファイルパスを設定する
 		 *
-		 * @param path ファイルパス
+		 * @param scene コールバック先のゲームシーンオブジェクト
 		 */
-		public CallBackBGM(GameScene path) {
-			this.path = path;
+		public CallBackBGM(GameScene scene) {
+			this.scene = scene;
 		}
 
 		@Override
 		public void run() {
 			stop();
-			setBGM(this.path.getSound());
+			setBGM(this.scene.getSound());
+			pause();
 			play();
-			path.callback(0);
+			scene.callback(0);
 		}
 	}
 
@@ -221,7 +222,6 @@ public class SoundController {
 	 */
 	public static void play() {
 		if(bgm != null) {
-			bgm.stop();
 			bgm.start();
 		}
 	}

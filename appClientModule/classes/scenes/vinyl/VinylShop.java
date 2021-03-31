@@ -456,7 +456,6 @@ public class VinylShop extends BaseVinylOperator implements GameScene {
 	public void callback() {
 		keyConfig.releaseAll();
 		this.requestFocusInWindow();
-		this.validate();
 	}
 
     /*

@@ -75,7 +75,7 @@ public class Mode {
 	 */
 	public static Mode getNormal() {
 		FlagTable[] ft = new FlagTable[] {
-				new FlagTable(1.0/30.0/*8000.0*/, 0.0, null, null, 2000, 1, FREEZE, SoundResource.SE_FREEZE_STOP),
+				new FlagTable(1.0/1.0, 0.0, null, null, 2000, 1, FREEZE, SoundResource.SE_FREEZE_STOP),
 		    	new FlagTable(1.0/200.0, 0.0, new int[]{5,5,5}, getAllLine(), 300, 1, BONUS, ""),
 		    	new FlagTable(1.0/200.0, 0.0, new int[]{6,6,6}, getAllLine(), 250, 2, BONUS, ""),
 		    	new FlagTable(1.0/300.0, 0.0, new int[]{5,5,4},  new int[][] { new int[] {1,1,1} }, 150, 3, BONUS, ""),

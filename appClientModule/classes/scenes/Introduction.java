@@ -40,10 +40,11 @@ public class Introduction extends BaseSystemOperator implements GameScene {
 	// ロゴを表示しているか
 	private boolean logoFlg;
 
-	private boolean onLoad = false;
+	// BGMの読み込み完了フラグ
+	private boolean onLoad;
 
 	/**
-	 * パネルの設定、画像の読み込み、フラグの初期化
+	 * 画像の読み込み、フラグの初期化
 	 */
 	public Introduction() {
 		logo = GeneralUtil.readImage(ImageResource.Logo.INTRODUCTION.getValue());
@@ -55,7 +56,7 @@ public class Introduction extends BaseSystemOperator implements GameScene {
     /**
 	 * フレームごとの再描画を行う
 	 *
-	 * @param g グラフィックスオブジェクト
+	 * @param g Graphicsオブジェクト
 	 */
     public void paintComponent(Graphics g) {
 
@@ -176,6 +177,7 @@ public class Introduction extends BaseSystemOperator implements GameScene {
 	public void initParam() {
 		animeCount = sceneCount = 0;
     	logoFlg = false;
+    	onLoad = false;
 	}
 
 	/**

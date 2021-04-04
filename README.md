@@ -13,8 +13,8 @@ Eclipseで実行する場合以下の手順を行ってください。
 
 As derived from Eclipse project, please refer to the following instructions:
   1. Right-click on **Package Explorer**, select **Import**
-  2. select **Git** > **Projects from Git**, click on **Next**
-  3. select **Clone URI**, click on **Next**
+  2. Select **Git** > **Projects from Git**, click on **Next**
+  3. Select **Clone URI**, click on **Next**
   4. Enter https://github.com/Ojeechan/OjeechanQuest.git into **URI**, click on **Next**
-  5. skip over next few steps until the wizard option, then select **Import existing Eclipse projects** and click on **Next**
-  6. click on **Finish**
+  5. Skip over next few steps until the wizard option, then select **Import existing Eclipse projects** and click on **Next**
+  6. Click on **Finish**

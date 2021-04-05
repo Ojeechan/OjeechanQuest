@@ -96,7 +96,7 @@ public class ItemWindow extends BaseSystemOperator implements GameScene {
 				340,
 				310,
 				170,
-				ImageResource.VinylIcon.WINDOW.getValue()
+				ImageResource.VinylIcon.ITEMWINDOW.getValue()
     			);
 
 		for(Vinyl v:GameController.getVinylList()) {

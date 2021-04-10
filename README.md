@@ -1,5 +1,5 @@
 # OjeechanQuest
-Eclipseを用いたプロジェクトを公開しています。
+Eclipseを用いたJavaプロジェクトを公開しています。
 Eclipseで実行する場合以下の手順を行ってください。
 
   1. **Package Explorer**上で右クリック、**Import**を選択
@@ -11,7 +11,7 @@ Eclipseで実行する場合以下の手順を行ってください。
 
 --------------------------------------------------------------------------------------------------------------------------------
 
-As derived from Eclipse project, please refer to the following instructions:
+As derived from Java project with Eclipse, please refer to the following instructions:
   1. Right-click on **Package Explorer**, select **Import**
   2. Select **Git** > **Projects from Git**, click on **Next**
   3. Select **Clone URI**, click on **Next**

@@ -17,52 +17,52 @@ import classes.scenes.old.assets.StaticObject;
  * @author Naoki Yoshikawa
  */
 public interface Calculation {
-	/**
-	 * アクションステージで使用するスプライトのリストを返す
-	 *
-	 * @return スプライトのリスト
-	 */
-	LinkedList<BaseSprite> getSpriteList();
+    /**
+     * アクションステージで使用するスプライトのリストを返す
+     *
+     * @return スプライトのリスト
+     */
+    LinkedList<BaseSprite> getSpriteList();
 
-	/**
-	 * Zインデックスの最前面に表示するステージオブジェクトのリストを返す
-	 *
-	 * @return ステージオブジェクトのリスト
-	 */
-	LinkedList<StaticObject> getFrontObjectList();
+    /**
+     * Zインデックスの最前面に表示するステージオブジェクトのリストを返す
+     *
+     * @return ステージオブジェクトのリスト
+     */
+    LinkedList<StaticObject> getFrontObjectList();
 
-	/**
-	 * Zインデックスの最背面に表示するステージオブジェクトのリストを返す
-	 *
-	 * @return ステージオブジェクトのリスト
-	 */
-	LinkedList<StaticObject> getBackObjectList();
+    /**
+     * Zインデックスの最背面に表示するステージオブジェクトのリストを返す
+     *
+     * @return ステージオブジェクトのリスト
+     */
+    LinkedList<StaticObject> getBackObjectList();
 
-	/**
-	 * ステージの重力値を返す
-	 *
-	 * @return 重力値
-	 */
-	double getGravity();
+    /**
+     * ステージの重力値を返す
+     *
+     * @return 重力値
+     */
+    double getGravity();
 
-	/**
-	 * プレイヤーオブジェクトを返す
-	 *
-	 * @return プレイヤーオブジェクト
-	 */
-	Player getPlayer();
+    /**
+     * プレイヤーオブジェクトを返す
+     *
+     * @return プレイヤーオブジェクト
+     */
+    Player getPlayer();
 
-	/**
-	 * 地形情報の管理オブジェクトを返す
-	 *
-	 * @return 地形情報の管理オブジェクト
-	 */
-	MapController getMap();
+    /**
+     * 地形情報の管理オブジェクトを返す
+     *
+     * @return 地形情報の管理オブジェクト
+     */
+    MapController getMap();
 
-	/**
-	 * キーコンフィグオブジェクトを返す
-	 *
-	 * @return キーコンフィグオブジェクト
-	 */
-	KeyController getKeyConfig();
+    /**
+     * キーコンフィグオブジェクトを返す
+     *
+     * @return キーコンフィグオブジェクト
+     */
+    KeyController getKeyConfig();
 }

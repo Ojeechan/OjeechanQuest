@@ -41,101 +41,101 @@ import interfaces.GameScene;
 @SuppressWarnings("serial")
 public class Stage2 extends BaseActionOperator implements GameScene, Receiver {
 
-	// コードネームの文字列定数
-	public static final String MAJOR7 = "M7";
-	public static final String MINOR7 = "m7";
-	public static final String SEVENTH = "7";
-	public static final String MINOR7_F5 = "m7-5";
+    // コードネームの文字列定数
+    public static final String MAJOR7 = "M7";
+    public static final String MINOR7 = "m7";
+    public static final String SEVENTH = "7";
+    public static final String MINOR7_F5 = "m7-5";
 
-	// コード進行の位置を表すインデックス
-	private int progIndex;
+    // コード進行の位置を表すインデックス
+    private int progIndex;
 
-	// MIDIの設定
-	private Map<Integer, Midi> midiConfig;
+    // MIDIの設定
+    private Map<Integer, Midi> midiConfig;
 
-	// コード進行順のベースラインのリスト
-	private Map<Integer, String> baseline;
+    // コード進行順のベースラインのリスト
+    private Map<Integer, String> baseline;
 
-	// コード進行のリスト
-	private int[] chordProg;
+    // コード進行のリスト
+    private int[] chordProg;
 
-	// MIDIコントローラーオブジェクト
-	private MidiController midiController;
+    // MIDIコントローラーオブジェクト
+    private MidiController midiController;
 
-	// 伴奏のテンポ(BPMで指定)
-	private int bpm;
+    // 伴奏のテンポ(BPMで指定)
+    private int bpm;
 
-	// 伴奏のキー
-	private int key;
+    // 伴奏のキー
+    private int key;
 
-	// メジャーキーかどうか
-	private boolean isMajor;
+    // メジャーキーかどうか
+    private boolean isMajor;
 
-	// ダイアトニックトーンの配列
-	private String[] diatonics;
+    // ダイアトニックトーンの配列
+    private String[] diatonics;
 
-	/**
-	 * マップの読み込み、スプライトの設定
-	 */
+    /**
+     * マップの読み込み、スプライトの設定
+     */
     public Stage2() {
 
-    	// マップを作成
+        // マップを作成
         map = new MapController("map02.dat");
 
         // 背景画像のレイヤーを設定
-    	//background.add(new Background(GeneralUtil.readImage(ImageResource.LayeredBackground.BASE2.getValue()), 10, 1));
-    	background.add(new Background(GeneralUtil.readImage(ImageResource.LayeredBackground.LAYER3.getValue()), 8, 1));
-		background.add(new Background(GeneralUtil.readImage(ImageResource.LayeredBackground.LAYER1.getValue()), 6, 1));
-		background.add(new Background(GeneralUtil.readImage(ImageResource.LayeredBackground.LAYER2.getValue()), 3, 1));
+        //background.add(new Background(GeneralUtil.readImage(ImageResource.LayeredBackground.BASE2.getValue()), 10, 1));
+        background.add(new Background(GeneralUtil.readImage(ImageResource.LayeredBackground.LAYER3.getValue()), 8, 1));
+        background.add(new Background(GeneralUtil.readImage(ImageResource.LayeredBackground.LAYER1.getValue()), 6, 1));
+        background.add(new Background(GeneralUtil.readImage(ImageResource.LayeredBackground.LAYER2.getValue()), 3, 1));
 
-		// デフォルト設定のキャラクターを取得
+        // デフォルト設定のキャラクターを取得
         player = Player.getDefault(200, map.getHeight(), 32, 32);
 
         // 敵スプライトの設定
         baseSpriteList.add(
-        		new Enemy(
-				50.0,
-				map.getHeight() - 32,
-				32,
-				32,
-				ImageResource.Enemy1Left.values(),
-				ImageResource.Enemy1Right.values()
-			)
-		);
+                new Enemy(
+                50.0,
+                map.getHeight() - 32,
+                32,
+                32,
+                ImageResource.Enemy1Left.values(),
+                ImageResource.Enemy1Right.values()
+            )
+        );
 
         // 車スプライトの設定
         BufferedImage carImg = GeneralUtil.readImage(ImageResource.StageObject.CAR1.getValue());
         List<Point> pixelList = GeneralUtil.checkColor(carImg, Color.WHITE);
-		for(int i = 0; i < 5; i++) {
-	        baseSpriteList.add(
-	        		new Car(
-						map.getWidth(),
-						map.getHeight(),
-						32,
-						32,
-						ImageResource.StageObject.CAR1.getValue(),
-						pixelList
-					)
-	        	);
-		}
+        for(int i = 0; i < 5; i++) {
+            baseSpriteList.add(
+                    new Car(
+                        map.getWidth(),
+                        map.getHeight(),
+                        32,
+                        32,
+                        ImageResource.StageObject.CAR1.getValue(),
+                        pixelList
+                    )
+                );
+        }
 
-		// ステージオブジェクトの設定
+        // ステージオブジェクトの設定
         frontObjectList.add(
-        		new StaticObject(
-        		map.getWidth() - 256,
-				map.getHeight(),
-				ImageResource.StageObject.GOAL
-			)
-		);
+                new StaticObject(
+                map.getWidth() - 256,
+                map.getHeight(),
+                ImageResource.StageObject.GOAL
+            )
+        );
 
         backObjectList.add(
-        		new StaticObject(
-        		0,
-				map.getHeight(),
-				ImageResource.StageObject.START,
-				2
-			)
-		);
+                new StaticObject(
+                0,
+                map.getHeight(),
+                ImageResource.StageObject.START,
+                2
+            )
+        );
 
         // MIDIコントローラーのリスナーに登録
         midiController = new MidiController();
@@ -155,7 +155,7 @@ public class Stage2 extends BaseActionOperator implements GameScene, Receiver {
      * @return ダイアトニックコードのルート
      */
     public String getDiatonic() {
-    	return diatonics[chordProg[progIndex] - 1];
+        return diatonics[chordProg[progIndex] - 1];
     }
 
     /**
@@ -165,7 +165,7 @@ public class Stage2 extends BaseActionOperator implements GameScene, Receiver {
      * @return 半音階で表したコード進行
      */
     public int[] getConvertedChord() {
-    	return convertChordProg(this.chordProg);
+        return convertChordProg(this.chordProg);
     }
 
     /**
@@ -174,7 +174,7 @@ public class Stage2 extends BaseActionOperator implements GameScene, Receiver {
      * @return ナンバリングのみのコード進行
      */
     public int[] getChordProg() {
-    	return this.chordProg;
+        return this.chordProg;
     }
 
     /**
@@ -183,7 +183,7 @@ public class Stage2 extends BaseActionOperator implements GameScene, Receiver {
      * @return MIDIコントローラーのコンフィグ
      */
     public MidiController getMidiController() {
-    	return this.midiController;
+        return this.midiController;
     }
 
     /**
@@ -192,7 +192,7 @@ public class Stage2 extends BaseActionOperator implements GameScene, Receiver {
      * @return　コード進行のインデックス
      */
     public int getProgIndex() {
-    	return this.progIndex;
+        return this.progIndex;
     }
 
     /**
@@ -201,7 +201,7 @@ public class Stage2 extends BaseActionOperator implements GameScene, Receiver {
      * @return MIDIコンフィグ
      */
     public Map<Integer, Midi> getMidiConfig() {
-    	return this.midiConfig;
+        return this.midiConfig;
     }
 
     /**
@@ -210,10 +210,10 @@ public class Stage2 extends BaseActionOperator implements GameScene, Receiver {
      * @param notes 使用する音階の配列
      */
     private void setBaseNote(int[] notes) {
-    	baseline = new HashMap<Integer, String>();
-    	for(int note: notes) {
-    		baseline.put(note, getRoot((note + key) % 12));
-    	}
+        baseline = new HashMap<Integer, String>();
+        for(int note: notes) {
+            baseline.put(note, getRoot((note + key) % 12));
+        }
     }
 
     /**
@@ -222,17 +222,17 @@ public class Stage2 extends BaseActionOperator implements GameScene, Receiver {
      * @param key 指定キー
      */
     public void changeKey(int key) {
-    	this.key = key;
-    	int[] notes;
-    	if (isMajor) {
-    		notes = new int[] {0, 10, 8, 7, 5, 3, 1};
-    		diatonics = new String[] {MAJOR7, MINOR7, MINOR7, MAJOR7, SEVENTH, MINOR7, MINOR7_F5};
-    	} else {
-    		notes = new int[] {0, 10, 9, 7, 5, 4, 2};
-    		diatonics = new String[] {MINOR7, MINOR7_F5, MAJOR7, MINOR7, SEVENTH, MAJOR7, SEVENTH};
-    	}
+        this.key = key;
+        int[] notes;
+        if (isMajor) {
+            notes = new int[] {0, 10, 8, 7, 5, 3, 1};
+            diatonics = new String[] {MAJOR7, MINOR7, MINOR7, MAJOR7, SEVENTH, MINOR7, MINOR7_F5};
+        } else {
+            notes = new int[] {0, 10, 9, 7, 5, 4, 2};
+            diatonics = new String[] {MINOR7, MINOR7_F5, MAJOR7, MINOR7, SEVENTH, MAJOR7, SEVENTH};
+        }
 
-    	setBaseNote(notes);
+        setBaseNote(notes);
     }
 
     /**
@@ -241,7 +241,7 @@ public class Stage2 extends BaseActionOperator implements GameScene, Receiver {
      * @param chordProg 新しいコード進行
      */
     public void changeChordProg(int[] chordProg) {
-    	this.chordProg = chordProg;
+        this.chordProg = chordProg;
     }
 
     /**
@@ -251,45 +251,45 @@ public class Stage2 extends BaseActionOperator implements GameScene, Receiver {
      * @return 半音階表記でのコード進行
      */
     public int[] convertChordProg(int[] chordProg) {
-    	int[] convert = new int[chordProg.length];
-    	for(int i = 0; i < chordProg.length; i++) {
-    		switch(chordProg[i]) {
-    		case 1:
-    			convert[i] = 0;
-    			continue;
-    		case 2:
-    			convert[i] = 10;
-    			continue;
-    		case 3:
-    			if(isMajor) {
-    				convert[i] = 8;
-    			} else {
-    				convert[i] = 9;
-    			}
-    			continue;
-    		case 4:
-    			convert[i] = 7;
-    			continue;
-    		case 5:
-    			convert[i] = 5;
-    			continue;
-    		case 6:
-    			if(isMajor) {
-    				convert[i] = 3;
-    			} else {
-    				convert[i] = 4;
-    			}
-    			continue;
-    		case 7:
-    			if(isMajor) {
-    				convert[i] = 1;
-    			} else {
-    				convert[i] = 2;
-    			}
-    			continue;
-    		}
-    	}
-    	return convert;
+        int[] convert = new int[chordProg.length];
+        for(int i = 0; i < chordProg.length; i++) {
+            switch(chordProg[i]) {
+            case 1:
+                convert[i] = 0;
+                continue;
+            case 2:
+                convert[i] = 10;
+                continue;
+            case 3:
+                if(isMajor) {
+                    convert[i] = 8;
+                } else {
+                    convert[i] = 9;
+                }
+                continue;
+            case 4:
+                convert[i] = 7;
+                continue;
+            case 5:
+                convert[i] = 5;
+                continue;
+            case 6:
+                if(isMajor) {
+                    convert[i] = 3;
+                } else {
+                    convert[i] = 4;
+                }
+                continue;
+            case 7:
+                if(isMajor) {
+                    convert[i] = 1;
+                } else {
+                    convert[i] = 2;
+                }
+                continue;
+            }
+        }
+        return convert;
     }
 
     /**
@@ -299,44 +299,44 @@ public class Stage2 extends BaseActionOperator implements GameScene, Receiver {
      * @return 半音階表記でのコード進行
      */
     private String getRoot(int note) {
-    	switch (note) {
-	    	case 0:
-	    		return SoundResource.BGM_C;
-	    	case 1:
-	    		return SoundResource.BGM_B;
-	    	case 2:
-	    		return SoundResource.BGM_A_SHARP;
-	    	case 3:
-	    		return SoundResource.BGM_A;
-	    	case 4:
-	    		return SoundResource.BGM_G_SHARP;
-	    	case 5:
-	    		return SoundResource.BGM_G;
-	    	case 6:
-	    		return SoundResource.BGM_F_SHARP;
-	    	case 7:
-	    		return SoundResource.BGM_F;
-	    	case 8:
-	    		return SoundResource.BGM_E;
-	    	case 9:
-	    		return SoundResource.BGM_D_SHARP;
-	    	case 10:
-	    		return SoundResource.BGM_D;
-	    	case 11:
-	    		return SoundResource.BGM_C_SHARP;
-	    	default:
-	    		return null;
-    	}
-	}
+        switch (note) {
+            case 0:
+                return SoundResource.BGM_C;
+            case 1:
+                return SoundResource.BGM_B;
+            case 2:
+                return SoundResource.BGM_A_SHARP;
+            case 3:
+                return SoundResource.BGM_A;
+            case 4:
+                return SoundResource.BGM_G_SHARP;
+            case 5:
+                return SoundResource.BGM_G;
+            case 6:
+                return SoundResource.BGM_F_SHARP;
+            case 7:
+                return SoundResource.BGM_F;
+            case 8:
+                return SoundResource.BGM_E;
+            case 9:
+                return SoundResource.BGM_D_SHARP;
+            case 10:
+                return SoundResource.BGM_D;
+            case 11:
+                return SoundResource.BGM_C_SHARP;
+            default:
+                return null;
+        }
+    }
 
     /**
      * 指定されたコード進行に合わせてベース音を鳴らす
      */
     private void playBase() {
-    	SoundController.stop();
-		SoundController.setBGM(baseline.get(getConvertedChord()[progIndex]));
-		SoundController.loop(0, bpm * 1000);
-		playDrum(60000 / bpm / 2);
+        SoundController.stop();
+        SoundController.setBGM(baseline.get(getConvertedChord()[progIndex]));
+        SoundController.loop(0, bpm * 1000);
+        playDrum(60000 / bpm / 2);
     }
 
     /**
@@ -345,15 +345,15 @@ public class Stage2 extends BaseActionOperator implements GameScene, Receiver {
      * @param time 次にドラムを鳴らすまでの時間
      */
     private void playDrum(int time) {
-    	TimerTask task = new TimerTask() {
-			public void run() {
-				new Thread(new SoundController.PlaySE(SoundResource.SE_SNARE)).start();
+        TimerTask task = new TimerTask() {
+            public void run() {
+                new Thread(new SoundController.PlaySE(SoundResource.SE_SNARE)).start();
             }
-		};
+        };
 
-		new Thread(new SoundController.PlaySE(SoundResource.SE_BASSDRUM)).start();
+        new Thread(new SoundController.PlaySE(SoundResource.SE_BASSDRUM)).start();
 
-		Timer timer = new Timer();
+        Timer timer = new Timer();
         timer.schedule(task, time);
     }
 
@@ -361,25 +361,25 @@ public class Stage2 extends BaseActionOperator implements GameScene, Receiver {
      * 最初のベース音を鳴らし、bpmを指定する
      */
     private void startTimer() {
-    	playBase();
-    	chordTimer(60000 / bpm);
+        playBase();
+        chordTimer(60000 / bpm);
     }
 
     /**
      * 指定したタイムスパンでコードを進行させる
      */
     private void chordTimer(int time) {
-    	TimerTask task = new TimerTask() {
-			public void run() {
-				progIndex = (progIndex + 1) % chordProg.length;
-				System.out.println(progIndex);
-				System.out.println(getConvertedChord()[progIndex]);
-				playBase();
-				chordTimer(time);
+        TimerTask task = new TimerTask() {
+            public void run() {
+                progIndex = (progIndex + 1) % chordProg.length;
+                System.out.println(progIndex);
+                System.out.println(getConvertedChord()[progIndex]);
+                playBase();
+                chordTimer(time);
             }
-		};
+        };
 
-		Timer timer = new Timer();
+        Timer timer = new Timer();
         timer.schedule(task, time);
     }
 
@@ -388,14 +388,14 @@ public class Stage2 extends BaseActionOperator implements GameScene, Receiver {
      */
 
     /**
-	 * ユーザ入力または自動操作による入力値をもとに、フレームごとのオブジェクトの更新を行う
-	 * @see interfaces.GameScene
-	 *
-	 * @param dt     デルタタイム
-	 */
+     * ユーザ入力または自動操作による入力値をもとに、フレームごとのオブジェクトの更新を行う
+     * @see interfaces.GameScene
+     *
+     * @param dt     デルタタイム
+     */
     public void updator(double dt) {
-		UpdateLogic.basicLogic(this, dt);
-	}
+        UpdateLogic.basicLogic(this, dt);
+    }
 
     /**
      * JLayeredPanelに追加するために自身のインスタンスを返す
@@ -404,7 +404,7 @@ public class Stage2 extends BaseActionOperator implements GameScene, Receiver {
      * @return 自身のパネルインスタンス
      */
     public JLayeredPane getPanel() {
-    	return this;
+        return this;
     }
 
     /**
@@ -413,22 +413,22 @@ public class Stage2 extends BaseActionOperator implements GameScene, Receiver {
      *
      * @return 自身の初期状態のインスタンス
      */
-	public GameScene getNewScene() {
-    	return new Stage2();
-	}
+    public GameScene getNewScene() {
+        return new Stage2();
+    }
 
-	/**
+    /**
      * 自身のシーンで使用するBGMのファイルパスを返す
      * @see interfaces.GameScene
      *
      * @return BGMのファイルパス
      */
-	public String getSound() {
-    	return null;//SoundResource.BGM_POLLYANNA;
+    public String getSound() {
+        return null;//SoundResource.BGM_POLLYANNA;
     }
 
-	/**
-	 * <pre>
+    /**
+     * <pre>
      * 自身のシーンで使用するBGMの再生モードを返す
      * 0: ループ再生(ループ区間指定可)
      * 1: 一度のみ再生
@@ -437,63 +437,63 @@ public class Stage2 extends BaseActionOperator implements GameScene, Receiver {
      *
      * @return BGMのファイルパス
      */
-	public int getBgmMode() {
-		return GameScene.BGM_LOOP;
-	}
+    public int getBgmMode() {
+        return GameScene.BGM_LOOP;
+    }
 
-	/**
+    /**
      * 自身のシーンで使用するBGMの再生区間を返す
      *
      * @return BGM再生区間を表す始点と終点の値の組
      */
-	public Point getDuration() {
-		return new Point(0, GameScene.BGM_END);
-	}
+    public Point getDuration() {
+        return new Point(0, GameScene.BGM_END);
+    }
 
-	/**
+    /**
      * 各パラメータを初期化する
      */
-	public void initParam() {
-		// アクション系はスプライトのリストにinitをかけていけばいいはず
-		// よってコンストは今のままでいい？
-		super.helpOn = true;
-		 this.key = 0;
+    public void initParam() {
+        // アクション系はスプライトのリストにinitをかけていけばいいはず
+        // よってコンストは今のままでいい？
+        super.helpOn = true;
+         this.key = 0;
         this.isMajor = true;
         chordProg = new int[] {1, 6, 2, 5};
         this.bpm = 30;
         changeKey(key);
         progIndex = 0;
-	}
+    }
 
-	@Override
-	public void send(MidiMessage msg, long timeStamp) {
+    @Override
+    public void send(MidiMessage msg, long timeStamp) {
 
-		byte[] aMsg = msg.getMessage();
-		int chord = getConvertedChord()[progIndex];//chordProg[progIndex];
+        byte[] aMsg = msg.getMessage();
+        int chord = getConvertedChord()[progIndex];//chordProg[progIndex];
 
-		int index = ((int)aMsg[1] + chord + key) % 12;
+        int index = ((int)aMsg[1] + chord + key) % 12;
 
-		Midi midi =  midiConfig.get(index);
-		System.out.println((int)aMsg[1] % 12);
-		if(aMsg[2] > 0) {
-			midi.press();
-		} else {
-			midi.release();
-		}
-	}
+        Midi midi =  midiConfig.get(index);
+        System.out.println((int)aMsg[1] % 12);
+        if(aMsg[2] > 0) {
+            midi.press();
+        } else {
+            midi.release();
+        }
+    }
 
-	@Override
-	public void close() {
-		// TODO 自動生成されたメソッド・スタブ
+    @Override
+    public void close() {
+        // TODO 自動生成されたメソッド・スタブ
 
-	}
+    }
 
-	/**
-	 * シーンレイヤーのスタックのうち、子シーンからのコールバックを受ける
-	 *
-	 * @param res 呼び出し元からのレスポンスコード
-	 */
-	public void callback(int res) {
+    /**
+     * シーンレイヤーのスタックのうち、子シーンからのコールバックを受ける
+     *
+     * @param res 呼び出し元からのレスポンスコード
+     */
+    public void callback(int res) {
 
-	}
+    }
 }

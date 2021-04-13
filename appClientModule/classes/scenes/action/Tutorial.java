@@ -26,102 +26,102 @@ import interfaces.GameScene;
  */
 public class Tutorial extends BaseSystemOperator implements GameScene {
 
-	// スクリプトを管理するオブジェクト
+    // スクリプトを管理するオブジェクト
     private ScriptController script;
 
- 	/**
- 	 * スクリプト、ヘルプメッセージの設定
- 	 */
-	public Tutorial() {
+     /**
+      * スクリプト、ヘルプメッセージの設定
+      */
+    public Tutorial() {
 
-    	keyHelpList.add(new StringSelectOption(600, 250, FontController.Fonts.NORMAL, "ENTER: OK", 16));
+        keyHelpList.add(new StringSelectOption(600, 250, FontController.Fonts.NORMAL, "ENTER: OK", 16));
 
-		// 店員のスクリプトを設定
-		script = new ScriptController(
-				400,
-				100,
-				400,
-				200,
-				ImageResource.LayeredBackground.WINDOW.getValue()
-    			);
+        // 店員のスクリプトを設定
+        script = new ScriptController(
+                400,
+                100,
+                400,
+                200,
+                ImageResource.LayeredBackground.WINDOW.getValue()
+                );
 
-    	script.setScript(
-    			32,
-    			"キノコカイトリマス",
-    			FontController.Fonts.NORMAL
-    			);
+        script.setScript(
+                32,
+                "キノコカイトリマス",
+                FontController.Fonts.NORMAL
+                );
 
-		initParam();
-	}
+        initParam();
+    }
 
     /**
-	 * フレームごとの再描画を行う
-	 *
-	 * @param g グラフィックスオブジェクト
-	 */
+     * フレームごとの再描画を行う
+     *
+     * @param g グラフィックスオブジェクト
+     */
     @Override
-	public void paintComponent(Graphics g) {
+    public void paintComponent(Graphics g) {
 
-		// ウィンドウ背景の描画
+        // ウィンドウ背景の描画
 
-    	g.drawImage(
-				script.getBackground(),
-				(int) GameController.getWindow().getAbsPosX(script.getX()),
-				(int) GameController.getWindow().getAbsPosY(script.getY()),
-				(int) GameController.getWindow().getAbsPosX(script.getWidth()),
-				(int) GameController.getWindow().getAbsPosY(script.getHeight()),
-				null
-				);
+        g.drawImage(
+                script.getBackground(),
+                (int) GameController.getWindow().getAbsPosX(script.getX()),
+                (int) GameController.getWindow().getAbsPosY(script.getY()),
+                (int) GameController.getWindow().getAbsPosX(script.getWidth()),
+                (int) GameController.getWindow().getAbsPosY(script.getHeight()),
+                null
+                );
 
-		// インデックスで指定したスクリプトを表示
-		Script s = script.getScriptList().get(0);
-		GeneralUtil.drawScript(
-				s,
-				(int) (script.getX() + 30),
-				(int) (script.getY() + 80),
-				g
-	            );
+        // インデックスで指定したスクリプトを表示
+        Script s = script.getScriptList().get(0);
+        GeneralUtil.drawScript(
+                s,
+                (int) (script.getX() + 30),
+                (int) (script.getY() + 80),
+                g
+                );
 
-		if(helpOn) {
-    		GeneralUtil.drawSelectOptions(keyHelpList, GeneralUtil.ALIGN_CENTER, g);
-    	}
-	}
+        if(helpOn) {
+            GeneralUtil.drawSelectOptions(keyHelpList, GeneralUtil.ALIGN_CENTER, g);
+        }
+    }
 
-	/*
+    /*
      * GameSceneインターフェースの機能群
      */
 
     /**
-	 * ユーザ入力または自動操作による入力値をもとに、フレームごとのオブジェクトの更新を行う
-	 * @see interfaces.GameScene
-	 *
-	 * @param dt     デルタタイム
-	 */
-	@Override
-	public void updator(double dt) {
+     * ユーザ入力または自動操作による入力値をもとに、フレームごとのオブジェクトの更新を行う
+     * @see interfaces.GameScene
+     *
+     * @param dt     デルタタイム
+     */
+    @Override
+    public void updator(double dt) {
 
-		WindowController w = GameController.getWindow();
-		// ポーズ
-	    if(keyConfig.getKeys().get(KeyEvent.VK_ESCAPE).isPressed()) {
-	    	w.pushScene(GameController.getScene(SceneController.PAUSE));
-	    	keyConfig.releaseAll();
-	    }
+        WindowController w = GameController.getWindow();
+        // ポーズ
+        if(keyConfig.getKeys().get(KeyEvent.VK_ESCAPE).isPressed()) {
+            w.pushScene(GameController.getScene(SceneController.PAUSE));
+            keyConfig.releaseAll();
+        }
 
-	    if(keyConfig.getKeys().get(KeyEvent.VK_ENTER).isPressed()) {
-	    	w.popScene();
-	    }
+        if(keyConfig.getKeys().get(KeyEvent.VK_ENTER).isPressed()) {
+            w.popScene();
+        }
 
-	    script.getScriptList().get(0).proceedIndex(dt);
-	}
+        script.getScriptList().get(0).proceedIndex(dt);
+    }
 
-	/**
+    /**
      * JLayeredPanelに追加するために自身のインスタンスを返す
      * @see interfaces.GameScene
      *
      * @return 自身のパネルインスタンス
      */
     public JLayeredPane getPanel() {
-    	return this;
+        return this;
     }
 
     /**
@@ -131,7 +131,7 @@ public class Tutorial extends BaseSystemOperator implements GameScene {
      * @return 自身の初期状態のインスタンス
      */
     public GameScene getNewScene() {
-    	return new Tutorial();
+        return new Tutorial();
     }
 
     /**
@@ -141,11 +141,11 @@ public class Tutorial extends BaseSystemOperator implements GameScene {
      * @return BGMのファイルパス
      */
     public String getSound() {
-    	return null;
+        return null;
     }
 
     /**
-	 * <pre>
+     * <pre>
      * 自身のシーンで使用するBGMの再生モードを返す
      * 0: ループ再生(ループ区間指定可)
      * 1: 一度のみ再生
@@ -153,32 +153,32 @@ public class Tutorial extends BaseSystemOperator implements GameScene {
      * </pre>
      * @return BGMのファイルパス
      */
-	public int getBgmMode() {
-		return GameScene.BGM_NONE;
-	}
+    public int getBgmMode() {
+        return GameScene.BGM_NONE;
+    }
 
-	/**
+    /**
      * 自身のシーンで使用するBGMの再生区間を返す
      *
      * @return BGM再生区間を表す始点と終点の値の組
      */
-	public Point getDuration() {
-		return null;
-	}
+    public Point getDuration() {
+        return null;
+    }
 
     /**
      * 各パラメータを初期化する
      */
-	public void initParam() {
-		helpOn = true;
-	}
+    public void initParam() {
+        helpOn = true;
+    }
 
-	/**
-	 * シーンレイヤーのスタックのうち、子シーンからのコールバックを受ける
-	 *
-	 * @param res 呼び出し元からのレスポンスコード
-	 */
-	public void callback(int res) {
+    /**
+     * シーンレイヤーのスタックのうち、子シーンからのコールバックを受ける
+     *
+     * @param res 呼び出し元からのレスポンスコード
+     */
+    public void callback(int res) {
 
-	}
+    }
 }

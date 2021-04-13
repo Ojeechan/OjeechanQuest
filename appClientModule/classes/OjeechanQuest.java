@@ -10,13 +10,13 @@ import classes.controllers.WindowController;
  */
 public class OjeechanQuest {
 
-	/**
-	 * mainメソッド
-	 *
-	 * @param args コマンドライン引数
-	 */
+    /**
+     * mainメソッド
+     *
+     * @param args コマンドライン引数
+     */
     public static void main(String[] args) {
-    	WindowController window = new WindowController();
-    	new GameController(window);
+        WindowController window = new WindowController();
+        new GameController(window);
     }
 }

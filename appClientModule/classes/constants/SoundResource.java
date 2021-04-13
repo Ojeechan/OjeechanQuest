@@ -7,7 +7,7 @@ package classes.constants;
  */
 public class SoundResource {
 
-	// SE
+    // SE
     public static final String SE_AH = "sounds/se/ah.wav";
     public static final String SE_C = "sounds/se/melody_c.wav";
     public static final String SE_D = "sounds/se/melody_d.wav";

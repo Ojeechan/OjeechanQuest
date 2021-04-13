@@ -33,46 +33,46 @@ import interfaces.Calculation;
 @SuppressWarnings("serial")
 public class Goal extends BaseActionOperator implements GameScene {
 
-	// 背景画像オブジェクト
-	private BufferedImage background;
-	private BufferedImage background2;
+    // 背景画像オブジェクト
+    private BufferedImage background;
+    private BufferedImage background2;
 
-	// 背後で実行するゲームシーンオブジェクト
-	private Calculation baseScene;
+    // 背後で実行するゲームシーンオブジェクト
+    private Calculation baseScene;
 
-	// フェードに使用するアルファ値
-	private float alpha;
+    // フェードに使用するアルファ値
+    private float alpha;
 
-	// アニメーション中のプレイヤーの描画位置のX座標
-	private double x;
+    // アニメーション中のプレイヤーの描画位置のX座標
+    private double x;
 
-	/**
-	 * 背景画像の読み込み、アニメーション用プレイヤースプライトの設定
-	 */
-	public Goal() {
-		initParam();
+    /**
+     * 背景画像の読み込み、アニメーション用プレイヤースプライトの設定
+     */
+    public Goal() {
+        initParam();
 
-		background = GeneralUtil.readImage(ImageResource.LayeredBackground.GOAL.getValue());
-		background2 = GeneralUtil.readImage(ImageResource.LayeredBackground.GOAL2.getValue());
-		keyConfig.setKeys(KeyEvent.VK_ENTER, keyConfig.new Key(KeyController.DETECT_INITIAL_PRESS_ONLY));
+        background = GeneralUtil.readImage(ImageResource.LayeredBackground.GOAL.getValue());
+        background2 = GeneralUtil.readImage(ImageResource.LayeredBackground.GOAL2.getValue());
+        keyConfig.setKeys(KeyEvent.VK_ENTER, keyConfig.new Key(KeyController.DETECT_INITIAL_PRESS_ONLY));
 
-		// あとでコード的な裏付けを追加するが、今は一旦ゴリ押しでキャストする
-		baseScene = (Calculation)GameController.getWindow().getBasePanel();
-		Player original = baseScene.getPlayer();
-		original.stop();
-		original.switchLabel(ImageResource.RUN_RIGHT);
-		x = - original.getActualWidth();
-	}
+        // あとでコード的な裏付けを追加するが、今は一旦ゴリ押しでキャストする
+        baseScene = (Calculation)GameController.getWindow().getBasePanel();
+        Player original = baseScene.getPlayer();
+        original.stop();
+        original.switchLabel(ImageResource.RUN_RIGHT);
+        x = - original.getActualWidth();
+    }
 
-	/**
-	 * フレームごとの再描画を行う
-	 *
-	 * @param g グラフィックスオブジェクト
-	 */
+    /**
+     * フレームごとの再描画を行う
+     *
+     * @param g グラフィックスオブジェクト
+     */
     public void paintComponent(Graphics g) {
 
-    	Graphics2D g2 = (Graphics2D) g;
-    	AlphaComposite composite = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, alpha);
+        Graphics2D g2 = (Graphics2D) g;
+        AlphaComposite composite = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, alpha);
 
         g2.setComposite(composite);
         g2.setColor(Color.WHITE);
@@ -80,16 +80,16 @@ public class Goal extends BaseActionOperator implements GameScene {
 
         BufferedImage image;
         if(x < GameController.getWindow().getWindowWidth() / 2) {
-        	image = background;
+            image = background;
         } else {
-        	image = background2;
+            image = background2;
         }
 
         composite = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f);
         g2.setComposite(composite);
-    	g.drawImage(image, 64, 48, image.getWidth() * 8, image.getHeight() * 8, null);
-     	DrawLogic.paintGoalLogic(baseScene, x, g);
-	}
+        g.drawImage(image, 64, 48, image.getWidth() * 8, image.getHeight() * 8, null);
+         DrawLogic.paintGoalLogic(baseScene, x, g);
+    }
 
     /**
      * GameSceneインターフェースの機能群
@@ -97,31 +97,31 @@ public class Goal extends BaseActionOperator implements GameScene {
      */
 
     /**
-	 * ユーザ入力または自動操作による入力値をもとに、フレームごとのオブジェクトの更新を行う
-	 *
-	 * @param dt     デルタタイム
-	 */
+     * ユーザ入力または自動操作による入力値をもとに、フレームごとのオブジェクトの更新を行う
+     *
+     * @param dt     デルタタイム
+     */
     public void updator(double dt) {
-    	if(x <= GameController.getWindow().getWindowWidth() / 2) {
-    		if(x == GameController.getWindow().getWindowWidth() / 2) {
-    			new Thread(new SoundController.PlaySE(SoundResource.SE_CLOCK)).start();
-    		}
-    		x++;
-    	}
-
-    	if(alpha < 0.97) {
-    		alpha += 0.004f;
-    	} else {
-    		alpha = 1;
-    	}
-    	Map<Integer, KeyController.Key> keys = getKeyConfig().getKeys();
-    	if (keys.get(KeyEvent.VK_ENTER).isPressed()) {
-    		GameController.getWindow().changeScene(GameController.getScene(SceneController.WORLD));
+        if(x <= GameController.getWindow().getWindowWidth() / 2) {
+            if(x == GameController.getWindow().getWindowWidth() / 2) {
+                new Thread(new SoundController.PlaySE(SoundResource.SE_CLOCK)).start();
+            }
+            x++;
         }
 
-    	UpdateLogic.goalLogic(baseScene, dt);
-    	;
-	}
+        if(alpha < 0.97) {
+            alpha += 0.004f;
+        } else {
+            alpha = 1;
+        }
+        Map<Integer, KeyController.Key> keys = getKeyConfig().getKeys();
+        if (keys.get(KeyEvent.VK_ENTER).isPressed()) {
+            GameController.getWindow().changeScene(GameController.getScene(SceneController.WORLD));
+        }
+
+        UpdateLogic.goalLogic(baseScene, dt);
+        ;
+    }
 
     /**
      * JLayeredPanelに追加するために自身のインスタンスを返す
@@ -129,7 +129,7 @@ public class Goal extends BaseActionOperator implements GameScene {
      * @return 自身のパネルインスタンス
      */
     public JLayeredPane getPanel() {
-    	return this;
+        return this;
     }
 
     /**
@@ -138,7 +138,7 @@ public class Goal extends BaseActionOperator implements GameScene {
      * @return 自身の初期状態のインスタンス
      */
     public GameScene getNewScene() {
-    	return new Goal();
+        return new Goal();
     }
 
     /**
@@ -146,12 +146,12 @@ public class Goal extends BaseActionOperator implements GameScene {
      *
      * @return BGMのファイルパス
      */
-	public String getSound() {
-		return SoundResource.BGM_AMBIENT1;
-	}
+    public String getSound() {
+        return SoundResource.BGM_AMBIENT1;
+    }
 
-	/**
-	 * <pre>
+    /**
+     * <pre>
      * 自身のシーンで使用するBGMの再生モードを返す
      * 0: ループ再生(ループ区間指定可)
      * 1: 一度のみ再生
@@ -160,33 +160,33 @@ public class Goal extends BaseActionOperator implements GameScene {
      *
      * @return BGMのファイルパス
      */
-	public int getBgmMode() {
-		return GameScene.BGM_LOOP;
-	}
+    public int getBgmMode() {
+        return GameScene.BGM_LOOP;
+    }
 
-	/**
+    /**
      * 自身のシーンで使用するBGMの再生区間を返す
      *
      * @return BGM再生区間を表す始点と終点の値の組
      */
-	public Point getDuration() {
-		return new Point(0, GameScene.BGM_END);
-	}
+    public Point getDuration() {
+        return new Point(0, GameScene.BGM_END);
+    }
 
-	/**
+    /**
      * 各パラメータを初期化する
      */
-	public void initParam() {
-		super.helpOn = true;
-		alpha = 0.5f;
-	}
+    public void initParam() {
+        super.helpOn = true;
+        alpha = 0.5f;
+    }
 
-	/**
-	 * シーンレイヤーのスタックのうち、子シーンからのコールバックを受ける
-	 *
-	 * @param res 呼び出し元からのレスポンスコード
-	 */
-	public void callback(int res) {
+    /**
+     * シーンレイヤーのスタックのうち、子シーンからのコールバックを受ける
+     *
+     * @param res 呼び出し元からのレスポンスコード
+     */
+    public void callback(int res) {
 
-	}
+    }
 }

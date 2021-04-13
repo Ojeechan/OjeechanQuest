@@ -17,42 +17,42 @@ import interfaces.GameScene;
  */
 public class SceneController {
 
-	private GameScene[] scenes;
-	public static final int TITLE = 0;
-	public static final int WORLD = 1;
-	public static final int SLOT = 2;
-	public static final int HALL = 3;
-	public static final int TURNTABLE = 4;
-	public static final int VINYL = 5;
-	public static final int PAUSE = 6;
-	public static final int ACTION = 7;
+    private GameScene[] scenes;
+    public static final int TITLE = 0;
+    public static final int WORLD = 1;
+    public static final int SLOT = 2;
+    public static final int HALL = 3;
+    public static final int TURNTABLE = 4;
+    public static final int VINYL = 5;
+    public static final int PAUSE = 6;
+    public static final int ACTION = 7;
 
-	/**
-	 * シーンのインスタンスを管理する
-	 */
-	public SceneController() {
-		scenes = new GameScene[8];
-		scenes[TITLE] = new Title();
-		scenes[WORLD] = new WorldMap();
-		scenes[SLOT] = new SlotStage();
-		scenes[HALL] = new SlotHall();
-		scenes[TURNTABLE] = new Turntable();
-		scenes[VINYL] = new VinylShop();
-		scenes[PAUSE] = new Pause();
-		scenes[ACTION] = new ActionStage();
-	}
+    /**
+     * シーンのインスタンスを管理する
+     */
+    public SceneController() {
+        scenes = new GameScene[8];
+        scenes[TITLE] = new Title();
+        scenes[WORLD] = new WorldMap();
+        scenes[SLOT] = new SlotStage();
+        scenes[HALL] = new SlotHall();
+        scenes[TURNTABLE] = new Turntable();
+        scenes[VINYL] = new VinylShop();
+        scenes[PAUSE] = new Pause();
+        scenes[ACTION] = new ActionStage();
+    }
 
-	public void initEffect() {
-		SlotHall sh = (SlotHall) scenes[HALL];
-		sh.setEffect();
+    public void initEffect() {
+        SlotHall sh = (SlotHall) scenes[HALL];
+        sh.setEffect();
 
-		VinylShop vs = (VinylShop) scenes[VINYL];
-		vs.setEffect();
-	}
+        VinylShop vs = (VinylShop) scenes[VINYL];
+        vs.setEffect();
+    }
 
-	public GameScene getScene(int index) {
-		scenes[index].initParam();
-		return scenes[index];
-	}
+    public GameScene getScene(int index) {
+        scenes[index].initParam();
+        return scenes[index];
+    }
 
 }

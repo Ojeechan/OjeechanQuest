@@ -12,7 +12,7 @@ import classes.utils.GeneralUtil;
  */
 public class Car extends BaseSprite {
 
-	// 車が右向きかどうか
+    // 車が右向きかどうか
     private boolean isRight;
     private Random random;
 
@@ -26,15 +26,15 @@ public class Car extends BaseSprite {
      * @param y         スプライトの描画位置のY座標
      * @param width     スプライトの描画する際の幅
      * @param height    スプライトの描画する際の高さ
-     * @param path		スプライト画像のファイルパス
+     * @param path        スプライト画像のファイルパス
      * @param pixelList 着色するピクセルのリスト
      */
     public Car(int x, int y, int width, int height, String path, List<Point> pixelList) {
         super(x, y, GeneralUtil.changeRandomColor(GeneralUtil.readImage(path), pixelList));
-    	random = new Random();
+        random = new Random();
         widthRatio = 4;
         heightRatio = 4;
-    	this.pixelList = pixelList;
+        this.pixelList = pixelList;
         isRight = random.nextInt(2) == 1;
         vx = GeneralUtil.getRandom(12, 4);
         this.x = random.nextInt(x);
@@ -52,7 +52,7 @@ public class Car extends BaseSprite {
      * @return 右向きかどうか
      */
     public boolean getIsRight() {
-    	return isRight;
+        return isRight;
     }
 
     /**
@@ -60,7 +60,7 @@ public class Car extends BaseSprite {
      *
      * @return 着色ピクセルのリスト
      */
-	public List<Point> getPixelList() {
-		return pixelList;
-	}
+    public List<Point> getPixelList() {
+        return pixelList;
+    }
 }

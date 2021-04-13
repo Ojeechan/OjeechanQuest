@@ -20,12 +20,12 @@ import interfaces.GameScene;
  */
 public class GameController implements Runnable {
 
-	// ゲームスピード
-	private static int SLEEP = 18;
-	private static int INIT_COIN = 9999;
-	private static int MAX_COIN = 999999;
+    // ゲームスピード
+    private static int SLEEP = 18;
+    private static int INIT_COIN = 9999;
+    private static int MAX_COIN = 999999;
 
-	// ゲームウィンドウの管理オブジェクト
+    // ゲームウィンドウの管理オブジェクト
     private static WindowController window;
 
     // シーンインスタンスの管理オブジェクト
@@ -47,15 +47,15 @@ public class GameController implements Runnable {
      */
     public GameController(WindowController window) {
 
-    	GameController.window = window;
+        GameController.window = window;
 
-    	window.setGameScene(new Introduction());
-    	window.pushScene(new Loading());
+        window.setGameScene(new Introduction());
+        window.pushScene(new Loading());
 
-    	window.pack();
-    	window.setVisible(true);
+        window.pack();
+        window.setVisible(true);
 
-    	// 初期デルタタイム
+        // 初期デルタタイム
         dt = 0.0;
 
         // ゲーム共通の通貨
@@ -74,12 +74,12 @@ public class GameController implements Runnable {
 
     private class Load implements Runnable {
 
-		@Override
-		public void run() {
-			scene = new SceneController();
-	        scene.initEffect();
-	        window.callback(0);
-		}
+        @Override
+        public void run() {
+            scene = new SceneController();
+            scene.initEffect();
+            window.callback(0);
+        }
     }
 
     /**
@@ -88,7 +88,7 @@ public class GameController implements Runnable {
      * @return ゲームウィンドウオブジェクト
      */
     public static WindowController getWindow() {
-    	return window;
+        return window;
     }
 
     /**
@@ -97,7 +97,7 @@ public class GameController implements Runnable {
      * @return ゲーム内共通のスコア
      */
     public static int getCoin() {
-    	return coin;
+        return coin;
     }
 
     /**
@@ -106,16 +106,16 @@ public class GameController implements Runnable {
      * @param income 加算するゲームスコア
      */
     public static void addCoin(int income) {
-    	coin += income;
-    	coin = Math.min(coin, MAX_COIN);
-    	coin = Math.max(coin, -MAX_COIN);
+        coin += income;
+        coin = Math.min(coin, MAX_COIN);
+        coin = Math.max(coin, -MAX_COIN);
     }
 
     /**
      * ゲーム共通のスコアを初期化する
      */
     public static void resetCoin() {
-    	coin = INIT_COIN;
+        coin = INIT_COIN;
     }
 
     /**
@@ -124,7 +124,7 @@ public class GameController implements Runnable {
      * @return ゲーム内共通のレコード
      */
     public static List<Vinyl> getVinylList() {
-    	return vinylList;
+        return vinylList;
     }
 
     /**
@@ -133,24 +133,24 @@ public class GameController implements Runnable {
      * @param v 追加するレコードオブジェクト
      */
     public static void addVinyl(Vinyl v) {
-    	vinylList.add(v);
+        vinylList.add(v);
     }
 
     /**
      * ゲーム共通で使用するレコードのリストを初期化する
      */
     public static void resetVinylList() {
-    	vinylList = Vinyl.getDefaultVinyl();
+        vinylList = Vinyl.getDefaultVinyl();
     }
 
     /**
      * リセットが必要な各ステージのパラメータを初期化する
      */
     public static void resetParam() {
-    	VinylShop vs = (VinylShop) GameController.getScene(SceneController.VINYL);
-		vs.restock();
-		ActionStage as = (ActionStage) GameController.getScene(SceneController.ACTION);
-		as.resetParam();
+        VinylShop vs = (VinylShop) GameController.getScene(SceneController.VINYL);
+        vs.restock();
+        ActionStage as = (ActionStage) GameController.getScene(SceneController.ACTION);
+        as.resetParam();
     }
 
     /**
@@ -160,7 +160,7 @@ public class GameController implements Runnable {
      * @return シーンインスタンス
      */
     public static GameScene getScene(int index) {
-    	return scene.getScene(index);
+        return scene.getScene(index);
     }
 
     /**
@@ -168,23 +168,23 @@ public class GameController implements Runnable {
      */
     public void run() {
 
-    	while(true) {
+        while(true) {
 
-    		// デルタタイムの計測開始
-    		long startdt = System.currentTimeMillis();
+            // デルタタイムの計測開始
+            long startdt = System.currentTimeMillis();
 
-    		// 現在のシーンの更新メソッドに処理を委譲する
+            // 現在のシーンの更新メソッドに処理を委譲する
             window.getFrontPanel().updator(dt);
-    		window.repaint();
+            window.repaint();
 
-	        try {
-	            Thread.sleep(SLEEP);
-	    	} catch (InterruptedException e) {
-	            e.printStackTrace();
-	        }
+            try {
+                Thread.sleep(SLEEP);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
 
-	        // デルタタイムの計測終了
-	    	dt = (System.currentTimeMillis() - startdt) / 1000.0;
-    	}
+            // デルタタイムの計測終了
+            dt = (System.currentTimeMillis() - startdt) / 1000.0;
+        }
     }
 }

@@ -18,7 +18,7 @@ import classes.utils.GeneralUtil;
  **/
 public class MapController {
 
-	// タイルサイズ
+    // タイルサイズ
     public static final int TILE_SIZE = 32;
 
     // マップ
@@ -81,7 +81,7 @@ public class MapController {
      * @return マップの最大列数
      */
     public int getColumn() {
-    	return col;
+        return col;
     }
 
     /**
@@ -90,7 +90,7 @@ public class MapController {
      * @return マップの最大行数
      */
     public int getRow() {
-    	return row;
+        return row;
     }
 
     /**
@@ -99,7 +99,7 @@ public class MapController {
      * @return マップデータ
      */
     public char[][] getMapData() {
-    	return map;
+        return map;
     }
 
     /**
@@ -108,7 +108,7 @@ public class MapController {
      * @return ステージオブジェクトのマップ
      */
     public Map<Character, BufferedImage> getAssetMap() {
-    	return stageAssetMap;
+        return stageAssetMap;
     }
 
     /**
@@ -125,13 +125,13 @@ public class MapController {
     public boolean isMelodyBlock(int x, int y) {
 
         if(x < 0 || y < 0 || x > col - 1 || y > row - 1) {
-        	return false;
+            return false;
         }
 
-    	if (map[y][x] >= '1' && map[y][x] <= '7'
-        		|| map[y][x] == 'u'
-				|| map[y][x] == 'i'
-        		) {
+        if (map[y][x] >= '1' && map[y][x] <= '7'
+                || map[y][x] == 'u'
+                || map[y][x] == 'i'
+                ) {
             return true;
         }
 
@@ -149,45 +149,45 @@ public class MapController {
      */
     public void knockMelodyBlock(int x, int y) {
 
-    	switch(map[y][x]) {
-    	 case '1':
-    		// SoundController.stopSound(Sound.SE_C);
-    		 //CONTROLLER_Sound.loopClipPeriod(CONSTANT_Sound.SE_C);
-    		 break;
-    	 case '2':
-    		 //SoundController.stopSound(Sound.SE_D);
-    		 //CONTROLLER_Sound.loopClipPeriod(CONSTANT_Sound.SE_D);
-    		 break;
-    	 case '3':
-    		 //SoundController.stopSound(Sound.SE_E);
-    		 //CONTROLLER_Sound.loopClipPeriod(CONSTANT_Sound.SE_E);
-    		 break;
-    	 case '4':
-    		 //SoundController.stopSound(Sound.SE_F);
-    		 //CONTROLLER_Sound.loopClipPeriod(CONSTANT_Sound.SE_F);
-    		 break;
-    	 case '5':
-    		 //SoundController.stopSound(Sound.SE_G);
-    		 //CONTROLLER_Sound.loopClipPeriod(CONSTANT_Sound.SE_G);
-    		 break;
-    	 case '6':
-    		 //SoundController.stopSound(Sound.SE_A);
-    		 //CONTROLLER_Sound.loopClipPeriod(CONSTANT_Sound.SE_A);
-    		 break;
-    	 case '7':
-    		 //SoundController.stopSound(Sound.SE_B);
-    		 //CONTROLLER_Sound.loopClipPeriod(CONSTANT_Sound.SE_B);
-    		 break;
-    	 case 'i':
-    		// CONTROLLER_Sound.stopLoopClip();
-    		 break;
-    	 case 'u':
-    		 //SoundController.stopSound(Sound.SE_BEAT);
-    		// CONTROLLER_Sound.loopClipPeriod(CONSTANT_Sound.SE_BEAT);
-    		 break;
-		 default:
-			 break;
-    	 }
+        switch(map[y][x]) {
+         case '1':
+            // SoundController.stopSound(Sound.SE_C);
+             //CONTROLLER_Sound.loopClipPeriod(CONSTANT_Sound.SE_C);
+             break;
+         case '2':
+             //SoundController.stopSound(Sound.SE_D);
+             //CONTROLLER_Sound.loopClipPeriod(CONSTANT_Sound.SE_D);
+             break;
+         case '3':
+             //SoundController.stopSound(Sound.SE_E);
+             //CONTROLLER_Sound.loopClipPeriod(CONSTANT_Sound.SE_E);
+             break;
+         case '4':
+             //SoundController.stopSound(Sound.SE_F);
+             //CONTROLLER_Sound.loopClipPeriod(CONSTANT_Sound.SE_F);
+             break;
+         case '5':
+             //SoundController.stopSound(Sound.SE_G);
+             //CONTROLLER_Sound.loopClipPeriod(CONSTANT_Sound.SE_G);
+             break;
+         case '6':
+             //SoundController.stopSound(Sound.SE_A);
+             //CONTROLLER_Sound.loopClipPeriod(CONSTANT_Sound.SE_A);
+             break;
+         case '7':
+             //SoundController.stopSound(Sound.SE_B);
+             //CONTROLLER_Sound.loopClipPeriod(CONSTANT_Sound.SE_B);
+             break;
+         case 'i':
+            // CONTROLLER_Sound.stopLoopClip();
+             break;
+         case 'u':
+             //SoundController.stopSound(Sound.SE_BEAT);
+            // CONTROLLER_Sound.loopClipPeriod(CONSTANT_Sound.SE_BEAT);
+             break;
+         default:
+             break;
+         }
 
     }
 
@@ -195,9 +195,9 @@ public class MapController {
      * マップデータ上のオブジェクトの画像を読み込む
      */
     private void loadImage() {
-    	for(char symbol: assetResourceMap.keySet()) {
-    		stageAssetMap.put(symbol, GeneralUtil.readImage(assetResourceMap.get(symbol)));
-		}
+        for(char symbol: assetResourceMap.keySet()) {
+            stageAssetMap.put(symbol, GeneralUtil.readImage(assetResourceMap.get(symbol)));
+        }
     }
 
     /**
@@ -212,10 +212,10 @@ public class MapController {
         try {
             // ファイルを開く
             BufferedReader br = new BufferedReader(
-        		new InputStreamReader(
+                new InputStreamReader(
                     getClass().getResourceAsStream("maps/" + filename)
                 )
-    		);
+            );
 
             // 行数を読み込む
             String line = br.readLine();
@@ -245,16 +245,16 @@ public class MapController {
      * @return デフォルトアセットのマップ
      */
     public static Map<Character, String> getStage1Asset() {
-    	Map<Character, String> stage1AssetMap = new HashMap<Character, String>();
-    	stage1AssetMap.put('1', ImageResource.StageObject.BLOCK_C.getValue());
-    	stage1AssetMap.put('2', ImageResource.StageObject.BLOCK_D.getValue());
-    	stage1AssetMap.put('3', ImageResource.StageObject.BLOCK_E.getValue());
-    	stage1AssetMap.put('4', ImageResource.StageObject.BLOCK_F.getValue());
-    	stage1AssetMap.put('5', ImageResource.StageObject.BLOCK_G.getValue());
-    	stage1AssetMap.put('6', ImageResource.StageObject.BLOCK_A.getValue());
-    	stage1AssetMap.put('7', ImageResource.StageObject.BLOCK_B.getValue());
-    	stage1AssetMap.put('i', ImageResource.StageObject.BLOCK_STOP.getValue());
-    	stage1AssetMap.put('u', ImageResource.StageObject.BLOCK_BEAT.getValue());
-    	return stage1AssetMap;
+        Map<Character, String> stage1AssetMap = new HashMap<Character, String>();
+        stage1AssetMap.put('1', ImageResource.StageObject.BLOCK_C.getValue());
+        stage1AssetMap.put('2', ImageResource.StageObject.BLOCK_D.getValue());
+        stage1AssetMap.put('3', ImageResource.StageObject.BLOCK_E.getValue());
+        stage1AssetMap.put('4', ImageResource.StageObject.BLOCK_F.getValue());
+        stage1AssetMap.put('5', ImageResource.StageObject.BLOCK_G.getValue());
+        stage1AssetMap.put('6', ImageResource.StageObject.BLOCK_A.getValue());
+        stage1AssetMap.put('7', ImageResource.StageObject.BLOCK_B.getValue());
+        stage1AssetMap.put('i', ImageResource.StageObject.BLOCK_STOP.getValue());
+        stage1AssetMap.put('u', ImageResource.StageObject.BLOCK_BEAT.getValue());
+        return stage1AssetMap;
     }
 }

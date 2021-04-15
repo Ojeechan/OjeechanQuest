@@ -83,7 +83,7 @@ public class Lever {
      *
      * @return レバーが下がっているかどうか
      */
-    public boolean getIsDown() {
+    public boolean isDown() {
         return this.isDown;
     }
 

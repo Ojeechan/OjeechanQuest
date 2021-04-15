@@ -164,7 +164,7 @@ public class UpdateLogic {
                 Enemy enemy = (Enemy)sprite;
 
                 // 敵が踏まれていない時
-                if(enemy.getIsAlive()) {
+                if(enemy.isAlive()) {
 
                     // プレイヤーと敵の衝突判定を行う
                     if (player.isCollision(enemy)) {
@@ -234,7 +234,7 @@ public class UpdateLogic {
                 Ball ball = (Ball) sprite;
 
                 // 動力を持っている場合バウンドで減衰させる
-                if(ball.getIsActive()) {
+                if(ball.isActive()) {
                     ball.amortize();
 
                 // プレイヤーがボールに衝突すると、動力を得る
@@ -276,7 +276,7 @@ public class UpdateLogic {
             StaticObject object = iterator.next();
 
             // ゴールオブジェクトに触れた場合、ゴールシーンへ移行する
-            if(object.getObjectType().equals(ImageResource.StageObject.GOAL.toString()) && object.getIsLayered()) {
+            if(object.getObjectType().equals(ImageResource.StageObject.GOAL.toString()) && object.isLayered()) {
                 GameController.getWindow().pushScene(new Goal());
 
             // 各ブロックとプレーヤーとの衝突判定
@@ -294,7 +294,7 @@ public class UpdateLogic {
                 // Todo: 試験的に衝突方向による演算の分岐を実装
                 if(target.getPlayer().isCollision(object)) {
 
-                    if(target.getPlayer().getVY() < 0 && !object.getIsInMotion()){
+                    if(target.getPlayer().getVY() < 0 && !object.isInMotion()){
                         object.strucken();
                         if(object.getObjectType().equals(ImageResource.StageObject.BLOCK_C.toString()) ){
                             //CONTROLLER_Sound.loopClipPeriod(CONSTANT_Sound.SE_C);
@@ -322,7 +322,7 @@ public class UpdateLogic {
                 }
 
                 // プレーヤーが活性化したブロックは膨らむアニメーションに入る
-                if(object.getIsInMotion()) {
+                if(object.isInMotion()) {
                     object.swell();
                 }
             }
@@ -417,7 +417,7 @@ public class UpdateLogic {
         MapController map = target.getMap();
 
         // プレイヤーの生存時とゲームオーバー時で更新ロジックを切り替える
-        if(player.getIsAlive()) {
+        if(player.isAlive()) {
             playerLogic(target, dt);
             activeSpriteLogic(target, dt);
             activeObjectLogic(target, dt);

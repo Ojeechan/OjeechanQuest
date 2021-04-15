@@ -280,7 +280,7 @@ public class SlotStage extends BaseSlotOperator implements GameScene {
         // レバオン
         if(keys.get(KeyEvent.VK_SPACE).isPressed()) {
             slot.pullLever();
-            if(slot.getIsReady()) {
+            if(slot.isReady()) {
                 slot.leverOn();
                 // 抽選結果がフリーズフラグだった場合演出を割り込ませて更新終了
                 if(slot.getFlagInfo().getType() == Mode.FREEZE) {
@@ -309,7 +309,7 @@ public class SlotStage extends BaseSlotOperator implements GameScene {
         slot.spinReel(dt);
 
         // リールの回転状態を参照する
-        if(!slot.getIsReady() && slot.checkReady()) {
+        if(!slot.isReady() && slot.checkReady()) {
             slot.payout();
             slot.startClock();
         }

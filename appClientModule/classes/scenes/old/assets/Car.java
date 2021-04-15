@@ -51,7 +51,7 @@ public class Car extends BaseSprite {
      *
      * @return 右向きかどうか
      */
-    public boolean getIsRight() {
+    public boolean isRight() {
         return isRight;
     }
 

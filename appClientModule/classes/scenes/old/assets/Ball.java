@@ -72,7 +72,7 @@ public class Ball extends BaseSprite {
      *
      * @return ボールが動力を持っているかどうか
      */
-    public boolean getIsActive() {
+    public boolean isActive() {
         return isActive;
     }
 

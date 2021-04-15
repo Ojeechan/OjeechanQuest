@@ -86,7 +86,7 @@ public class StageObject extends BaseSprite {
      *
      * @return 反転して描画するかどうか
      */
-    public boolean getIsReflected() {
+    public boolean isReflected() {
         return this.isReflected;
     }
 

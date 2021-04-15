@@ -72,7 +72,7 @@ public class DrawLogic {
 
         // 敵にぶつかるまでと、ぶつかって幽霊になってから
         // isAliveとisSpookはややこしいが、ぶつかってからお化けになるまでの微妙な期間がある
-        }  else if(player.getIsAlive() || player.getIsSpook()) {
+        }  else if(player.isAlive() || player.isSpook()) {
 
             // プレイヤーの向きで描画をY軸対称に反転させる
             if(player.getDirectionX() == BaseSprite.RIGHT) {
@@ -87,7 +87,7 @@ public class DrawLogic {
         }
 
         // 死体を描写する
-        if(player.getIsSpook()) {
+        if(player.isSpook()) {
             DrawUtil.drawDeadBody(
                 player,
                 offsetX,
@@ -108,7 +108,7 @@ public class DrawLogic {
                 Enemy enemy = (Enemy) sprite;
 
                 // プレイヤーに踏まれていない場合
-                if(enemy.getIsAlive()) {
+                if(enemy.isAlive()) {
 
                     // 進行方向に合わせてY軸対称で反転描画する
                     if(enemy.getDirectionX() == BaseSprite.RIGHT) {
@@ -132,7 +132,7 @@ public class DrawLogic {
                 Car car = (Car) sprite;
 
                 // 右向きの車は奥車線なので先に描画する
-                if(car.getIsRight()) {
+                if(car.isRight()) {
                     DrawUtil.drawSprite(car, offsetX, offsetY, g);
 
                 // 左向きの車は手前車線なので後から描画するため一旦リストに入れておく

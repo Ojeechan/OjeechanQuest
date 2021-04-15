@@ -42,7 +42,7 @@ public class UpdateUtil {
     public static void updateCar(Car car, Calculation target) {
 
         MapController map = target.getMap();
-        if(car.getIsRight()) {
+        if(car.isRight()) {
             car.setImageLeftX(car.getImageLeftX() + car.getVX());
             if(car.getEntityLeftX() > map.getWidth()) {
                 car.setImageLeftX(0);

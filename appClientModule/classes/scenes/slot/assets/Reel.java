@@ -154,7 +154,7 @@ public class Reel {
      *
      * @return リールが回転中かどうか
      */
-    public boolean getIsSpinning() {
+    public boolean isSpinning() {
         return this.isSpinning;
     }
 
@@ -166,7 +166,7 @@ public class Reel {
      *
      * @return 図柄が発光中かどうか
      */
-    public boolean getIsFlashing() {
+    public boolean isFlashing() {
         return this.isFlashing;
     }
 

@@ -582,7 +582,7 @@ public class ActionStage extends BaseSystemOperator implements GameScene {
         }
 
         // 反転描画
-        if(o.getIsReflected()) {
+        if(o.isReflected()) {
             g.drawImage(
                     o.getImage(),
                     (int) w.getAbsPosX(eyesight - distanceX - drawWidth/2),
@@ -897,7 +897,7 @@ public class ActionStage extends BaseSystemOperator implements GameScene {
                     StageObject m = new StageObject(
                             new Vector2(32, GROUND),
                             mushrooms[i].getImage(),
-                            mushrooms[i].getIsReflected(),
+                            mushrooms[i].isReflected(),
                             mushrooms[i].getType()
                             );
                     m.initParam();

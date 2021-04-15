@@ -80,7 +80,7 @@ public class Enemy extends BaseSprite implements Animation {
         *
         * @return 敵スプライトの生存フラグ
         */
-    public boolean getIsAlive() {
+    public boolean isAlive() {
         return isAlive;
     }
 

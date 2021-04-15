@@ -112,7 +112,7 @@ public class Freeze3 extends BaseSystemOperator implements GameScene {
 
         slot.getSlot().reverseReel(dt/10.0);
 
-        if(slot.getSlot().getLever().getIsDown()) {
+        if(slot.getSlot().getLever().isDown()) {
             slot.getSlot().animateLever(dt);
         }
 

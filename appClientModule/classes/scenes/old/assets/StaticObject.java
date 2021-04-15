@@ -101,7 +101,7 @@ public class StaticObject extends BaseSprite {
      *
      * @return 重なっているならばtrue
      */
-    public boolean getIsLayered() {
+    public boolean isLayered() {
         return isLayered;
     }
 
@@ -113,7 +113,7 @@ public class StaticObject extends BaseSprite {
      *
      * @return 膨らんでいる最中の場合true
      */
-    public boolean getIsSwelling() {
+    public boolean isSwelling() {
         return isSwelling;
     }
 
@@ -163,7 +163,7 @@ public class StaticObject extends BaseSprite {
      * @return リアクション中かどうか
      */
     // Todo: ブロック用のロジックであり、クラスを切り分けるべき
-    public boolean getIsInMotion() {
+    public boolean isInMotion() {
         return isInMotion;
     }
 

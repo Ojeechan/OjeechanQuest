@@ -113,7 +113,7 @@ public class DrawUtil {
             }
 
             // 入賞時のみ発光した図柄を上書きする
-            if(reel.getIsFlashing()) {
+            if(reel.isFlashing()) {
                 for(int[] line: slot.getValidLine()) {
 
                     // 成立ライン(上中下段のどこか)
@@ -205,7 +205,7 @@ public class DrawUtil {
     public static void drawSlotButton(Slot slot, Graphics g) {
         for (Button button: slot.getButtons()) {
             BufferedImage img = button.getImage();
-            if(button.getIsOn()) {
+            if(button.isOn()) {
                 BufferedImage tmp = new BufferedImage(img.getWidth(), img.getHeight(), img.getType());
                 img = button.getLuminance().filter(img, tmp);
             }
@@ -230,7 +230,7 @@ public class DrawUtil {
         Lever lever = slot.getLever();
         double ratio = 1.5;
         BufferedImage img;
-        if(lever.getIsDown()) {
+        if(lever.isDown()) {
             img = lever.getImageDown();
         } else {
             img = lever.getImageUp();

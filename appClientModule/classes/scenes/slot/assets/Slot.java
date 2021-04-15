@@ -158,7 +158,7 @@ public class Slot {
      *
      * @return 次の回転が可能かどうかを
      */
-    public boolean getIsReady() {
+    public boolean isReady() {
         return this.isReady;
     }
 
@@ -178,7 +178,7 @@ public class Slot {
             && checkReady()
             && checkLine())
             || (getFlagInfo().getType() == Mode.FREEZE
-            && getIsReady())
+            && isReady())
             ) {
             return getFlagInfo().getPayout();
         } else {
@@ -403,7 +403,7 @@ public class Slot {
 
         Reel reel = reels[button];
 
-        if(reel.getIsSpinning()) {
+        if(reel.isSpinning()) {
             // 対応リールの停止位置までの距離を計算する
             int targetIcon = getFlagInfo().getValidIcon()[button];
             int[] candidates = getCandPos(button);
@@ -576,7 +576,7 @@ public class Slot {
         for(Reel reel: reels) {
 
             // レバオンから停止ボタンが押されるまで
-            if (reel.getIsSpinning()) {
+            if (reel.isSpinning()) {
 
                 if(getFlagInfo().getType() == Mode.FREEZE) {
                     // ここで目的のリール位置まで逆回転して、到達したら全リールを一斉に特定の出目で出すメソッドを呼ぶ
@@ -638,7 +638,7 @@ public class Slot {
      * @param dt タイムパラメータ
      */
     public void animateLever(double dt) {
-        if(lever.getIsDown()) {
+        if(lever.isDown()) {
             lever.proceed(dt);
         }
     }
@@ -732,7 +732,7 @@ public class Slot {
     public boolean checkReady() {
         // リールは全て止まっているか
         for(Reel reel: this.reels) {
-            if(reel.getIsSpinning() || reel.getDistance() > 0) {
+            if(reel.isSpinning() || reel.getDistance() > 0) {
                 return false;
             }
         }

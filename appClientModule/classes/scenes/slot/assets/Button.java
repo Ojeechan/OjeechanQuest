@@ -77,7 +77,7 @@ public class Button {
      *
      * @return ボタンが点灯しているかどうか
      */
-    public boolean getIsOn() {
+    public boolean isOn() {
         return this.isOn;
     }
 

@@ -153,7 +153,7 @@ public class Player extends BaseSprite implements Animation {
         *
         * @return プレイヤーの生存フラグ
         */
-    public boolean getIsAlive() {
+    public boolean isAlive() {
         return isAlive;
     }
 
@@ -165,7 +165,7 @@ public class Player extends BaseSprite implements Animation {
         *
         * @return プレイヤーの幽霊フラグ
         */
-    public boolean getIsSpook() {
+    public boolean isSpook() {
         return isSpook;
     }
 
